@@ -8,6 +8,7 @@ use file_writer::write_to_file;
 async fn main() -> Result<(), reqwest::Error> {
     let books = book_lists::NEWSWEEK_100_BOOKS;
     let mut book_data: Vec<(String, String, i64, i64)> = Vec::new();
+    let mut no_info_data: Vec<(String, String)> = Vec::new();
 
     for book in books.iter() {
         let url = format!(
@@ -31,19 +32,19 @@ async fn main() -> Result<(), reqwest::Error> {
             // For simplicity, we are converting page count to approximate word count by assuming 250 words per page.
             let word_count = page_count * 250;
 
-            book_data.push((title.to_string(), authors.to_string(), word_count, page_count));
-
-            /*println!(
-                "Title: {}\nAuthors: {}\nApproximate Word Count: {}\nPages: {}\n",
-                title, authors, word_count, page_count
-            );*/
+            if page_count == 0 {
+                no_info_data.push((title.to_string(), authors));
+            } else {
+                book_data.push((title.to_string(), authors, word_count, page_count));
+            }
         }
     }
 
-    if let Err(e) = write_to_file(book_data) {
+    if let Err(e) = write_to_file(book_data, no_info_data) {
         eprintln!("Error writing to file: {}", e);
     }    
 
     Ok(())
 }
+
 
