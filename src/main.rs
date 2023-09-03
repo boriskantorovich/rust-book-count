@@ -1,13 +1,10 @@
+use book_list;
 use reqwest;
 use serde_json::Value;
 
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {
-    let books = vec![
-        "War and Peace", "1984", "Ulysses", 
-        "Lolita", "To Kill a Mockingbird"
-        // add more book titles here
-    ];
+    let books = book_list::NEWSWEEK_100_BOOKS;
 
     for book in books.iter() {
         let url = format!(
@@ -32,8 +29,8 @@ async fn main() -> Result<(), reqwest::Error> {
             let word_count = page_count * 250;
 
             println!(
-                "Title: {}\nAuthors: {}\nApproximate Word Count: {}\n",
-                title, authors, word_count
+                "Title: {}\nAuthors: {}\nApproximate Word Count: {}\nPages: {}\n",
+                title, authors, word_count, page_count
             );
         }
     }
