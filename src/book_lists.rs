@@ -1,4 +1,4 @@
-pub const NEWSWEEK_100_BOOKS: [&str; 100] =[
+pub const NEWSWEEK_100_BOOKS: [&str; 101] =[
     "War and Peace", 
     "1984", 
     "Ulysses", 
@@ -6,7 +6,8 @@ pub const NEWSWEEK_100_BOOKS: [&str; 100] =[
     "The Sound and the Fury", 
     "Invisible Man", 
     "To the Lighthouse", 
-    "Iliad and Odyssey", 
+    "Iliad", 
+	"Odyssey", 
     "Pride and Prejudice", 
     "Divine Comedy", 
     "The Canterbury Tales", 
